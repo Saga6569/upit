@@ -1,0 +1,39 @@
+$data-table-border: 1px solid #ddd;
+$data-table-bg-header: #f2f2f2;
+$data-table-bg-row-even: #f9f9f9;
+$data-table-bg-row-hover: #f1f1f1;
+
+.dataTable {
+ margin: auto;
+ width: 80%;
+ border-collapse: collapse;
+
+ th,
+ td {
+  border: $data-table-border;
+  padding: 8px;
+  text-align: left;
+ }
+
+ th {
+  background-color: $data-table-bg-header;
+  font-weight: bold;
+ }
+
+ tr {
+  &:hover {
+   background-color: $data-table-bg-row-hover;
+  }
+ }
+}
+.contener {
+ display: flex;
+ align-content: center;
+ align-items: center;
+ justify-content: center;
+ height: 50vh;
+ font-size: 40px;
+ .plug {
+  text-align: center;
+ }
+}
