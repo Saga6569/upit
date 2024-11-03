@@ -12,7 +12,3 @@ const App = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default App;
-
-
-git config --global user.email "aristov6569@gmail.com"
-git config --global user.name "saga6569"
