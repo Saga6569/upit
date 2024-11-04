@@ -1,33 +1,37 @@
-import { useAppContext } from "../../AppContext";
+import { observer } from "mobx-react-lite";
+import store from "../../store/store";
+import { IPeople } from "../../types/types";
 import style from "./TableRendering.module.scss";
 
-const TableRendering = () => {
- const { state, setState } = useAppContext();
+const TableRendering = observer(() => {
+ const { data, greatModalData, sortDate } = store;
 
  const renderTheder = () => {
-  if (!state.hasOwnProperty("dataRequest")) {
+  if (data.length === 0) {
    return (
     <div className={style.contener}>
      <div className={style.plug}>загрузите данные</div>
     </div>
    );
   }
-  const keys = Object.keys(state.dataRequest[0]);
+  const keys = Object.keys(data[0]);
   return (
-   <tr>
+   <tr className="heder">
     {keys.map((key, id) => (
-     <th key={id}>{key}</th>
+     <th onClick={() => sortDate(key)} key={id}>
+      {key}
+     </th>
     ))}
    </tr>
   );
  };
 
- const renderTableBody = () => {
-  if (!state.hasOwnProperty("dataRequest")) {
+ const renderTableBody = (arrPeoples: IPeople[]) => {
+  if (arrPeoples.length === 0) {
    return null;
   }
-  return state.dataRequest.map((people, rowIndex) => (
-   <tr key={rowIndex}>
+  return arrPeoples.map((people: IPeople, rowIndex) => (
+   <tr key={rowIndex} onClick={() => greatModalData(people)}>
     {Object.values(people).map((value, id) => (
      <td key={id}>{value}</td>
     ))}
@@ -38,9 +42,9 @@ const TableRendering = () => {
  return (
   <table className={style.dataTable}>
    <thead>{renderTheder()}</thead>
-   <tbody>{renderTableBody()}</tbody>
+   <tbody>{renderTableBody(data)}</tbody>
   </table>
  );
-};
+});
 
 export default TableRendering;
