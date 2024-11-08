@@ -14,7 +14,7 @@ const ButtonNavForm = observer(() => {
  return (
   <div className={style.container}>
    <button className={style.button} onClick={() => navigate("form")}>
-    Добавть
+    добавить
    </button>
   </div>
  );

@@ -100,7 +100,7 @@ const Form = observer(() => {
      localStorage.setItem("FormDate", JSON.stringify({}));
     }}
    >
-    отчистить форму
+    очистить форму
    </button>
    <button className={style.home} onClick={() => navigate("/")}>
     назад
