@@ -4,4 +4,4 @@
 1. npm i
 2. npm run dev
 
-Ссылка на проект[https://upit-nu.vercel.app/]
+[Ссылка на проект](https://upit-nu.vercel.app/)
