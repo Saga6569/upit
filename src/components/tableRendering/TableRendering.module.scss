@@ -5,7 +5,7 @@ $data-table-bg-row-hover: #f1f1f1;
 
 .dataTable {
  margin: auto;
- width: 80%;
+ width: 60%;
  border-collapse: collapse;
 
  th,
@@ -13,9 +13,11 @@ $data-table-bg-row-hover: #f1f1f1;
   border: $data-table-border;
   padding: 8px;
   text-align: left;
+  max-width: 0px;
  }
 
  th {
+  position: relative;
   background-color: $data-table-bg-header;
   font-weight: bold;
  }
@@ -35,5 +37,32 @@ $data-table-bg-row-hover: #f1f1f1;
  font-size: 40px;
  .plug {
   text-align: center;
+ }
+}
+
+.buttonSort {
+ font-size: 25px;
+ margin-left: 15px;
+ cursor: pointer;
+}
+
+.triangle {
+ position: absolute;
+ bottom: 0;
+ right: 0;
+ width: 20px;
+ height: 20px;
+ transform: rotate(100grad);
+}
+
+.pagination {
+ display: flex;
+ gap: 15px;
+ margin-top: 15px;
+ align-items: baseline;
+ justify-content: center;
+
+ button {
+  padding: 10px 10px;
  }
 }

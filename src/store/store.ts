@@ -8,11 +8,10 @@ class Store {
   isOpen: false,
   title: "",
  };
+ currentPage = 1;
 
  constructor() {
   makeAutoObservable(this);
-
-  console.log(localStorage);
 
   const localStorageData = localStorage.getItem("data");
   if (localStorageData) {
@@ -21,13 +20,19 @@ class Store {
 
   const localStorageModal = localStorage.getItem("modal");
   if (localStorageModal) {
-    this.modal = JSON.parse(localStorageModal) as IModal;
+   this.modal = JSON.parse(localStorageModal) as IModal;
+  }
+
+  const localStoragePage = localStorage.getItem("page");
+  if (localStoragePage) {
+   this.currentPage = JSON.parse(localStoragePage);
   }
  }
 
  saveLocalStorage() {
   localStorage.setItem("data", JSON.stringify(this.data));
   localStorage.setItem("modal", JSON.stringify(this.modal));
+  localStorage.setItem("page", JSON.stringify(this.currentPage));
  }
 
  getData = async () => {
@@ -75,10 +80,10 @@ class Store {
   this.cleanDataModal();
  };
 
- greatModalData = (people: IPeople) => {
+ greatModalData = (people: IPeople, title: string, isOpen: boolean) => {
   this.modal = {
-   isOpen: true,
-   title: "вы уверены что  хотите удалить данные",
+   isOpen: isOpen,
+   title: title,
    people,
   };
   this.saveLocalStorage();
@@ -91,15 +96,39 @@ class Store {
 
  sortDate = (key: keyof IPeople) => {
   if (key === "id") {
-   this.data = this.data.sort((a, b) => Number(a.id) - Number(b.id));
+   const arrId = this.data.map((people) => Number(people.id));
+   const firstID = arrId[0];
+   const maxID = Math.max(...arrId);
+   firstID !== maxID
+    ? this.data.sort((a, b) => Number(b.id) - Number(a.id))
+    : this.data.sort((a, b) => Number(a.id) - Number(b.id));
+
    this.saveLocalStorage();
    return;
   }
 
-  const newDate = this.data.sort((a, b) => a[key].localeCompare(b[key]));
+  const El = this.data[0][key];
+  const sortEl = this.data.sort((a, b) => a[key].localeCompare(b[key]))[0][key];
+
+  El !== sortEl
+   ? this.data.sort((a, b) => a[key].localeCompare(b[key]))
+   : this.data.sort((a, b) => b[key].localeCompare(a[key]));
+  this.saveLocalStorage();
+ };
+
+ addDateForm = (people: IPeople) => {
+  this.data = [...this.data, people];
+  this.saveLocalStorage();
+ };
+
+ setDate = (newDate: IPeople[]) => {
   this.data = newDate;
   this.saveLocalStorage();
  };
-}
 
+ setCurrentPage = (value: number) => {
+  this.currentPage = value;
+  this.saveLocalStorage();
+ };
+}
 export default new Store();
