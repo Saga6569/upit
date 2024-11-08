@@ -11,7 +11,7 @@ const Modal = observer(() => {
 
  const arrPeoples = modal.people ?? null;
 
- const renderTheder = () => {
+ const renderHeder = () => {
   const keys = Object.keys(arrPeoples ?? {});
 
   return (
@@ -26,7 +26,7 @@ const Modal = observer(() => {
  const renderTableBody = () => {
   return (
    <tr>
-    {Object.values(arrPeoples ?? {}).map((value, id) => (
+    {Object.values(arrPeoples ?? {}).map((value: string, id: number) => (
      <td key={id}>{value}</td>
     ))}
    </tr>
@@ -43,7 +43,7 @@ const Modal = observer(() => {
     </button>
     <h2>{modal.title}</h2>
     <table className={style.dataTable}>
-     <thead>{renderTheder()}</thead>
+     <thead>{renderHeder()}</thead>
      <tbody>{renderTableBody()}</tbody>
     </table>
     <div className={style.container}>
